@@ -11,33 +11,40 @@
   </head>
 
   <body>
+
     <header class="bg-dark">
-      <div class="container">
-         <a class="navbar-brand" href="/">Bookers</a>
-      <nav class="d-flex navbar navbar-expand-lg navbar-dark flex-row-reverse">
-      <% if user_signed_in? %>
-      <div class="d-flex navbar-nav">
-      <a class="nav-link"><%= link_to "Home",user_path(:id)%></a>
-      <a class="nav-link"><%= link_to "Users",users_path%></a>
-      <a class="nav-link"><%= link_to "Books",books_path%></a>
-      <a class="nav-link"><%= link_to "logout",destroy_user_session_path,method: :delete%></a>
-      </div>
-      <%else%>
-      <div class="d-flex navbar-nav">
-      <a class="nav-link"><%= link_to "Home",user_registration_path%></a>
-      <a class="nav-link"><%= link_to "About",homes_about_path%></a>
-      <a class="nav-link"><%= link_to "sign up",new_user_registration_path%></a>
-      <a class="nav-link"><%= link_to "login",new_user_session_path%></a>
-      </div>
-      <%end%>
-      </nav>
-      </div>
+     <div class="container">
+
+       <nav class="row d-flex navbar navbar-expand-lg navbar-dark">
+         <a class="navbar-brand " href="/">Bookers</a>
+         <div class="ml-auto">
+          <% if user_signed_in? %>
+          <ul class="navbar-nav">
+            <%= link_to "Home",user_path(current_user), class: "text-light nav-link"%>
+            <%= link_to "Users",users_path, class: "text-light nav-link"%>
+            <%= link_to "Books",books_path, class: "text-light nav-link"%>
+            <%= link_to "logout",destroy_user_session_path,method: :delete, class: "text-light nav-link"%>
+          </ul>
+          <%else%>
+          <ul class="navbar-nav">
+            <%= link_to "Home",root_path, class: "text-light nav-link"%>
+            <%= link_to "About",homes_about_path, class: "text-light nav-link"%>
+            <%= link_to "sign up",new_user_registration_path, class: "text-light nav-link"%>
+            <%= link_to "login",new_user_session_path, class: "text-light nav-link"%>
+          </ul>
+          <%end%>
+         </div>
+       </nav>
+
+     </div>
     </header>
 
     <%= yield %>
 
     <footer>
-      <p>CopyRight infratop.inc</p>
+          <p class="text-center">CopyRight infratop.inc</p>
     </footer>
+
+
   </body>
 </html>
