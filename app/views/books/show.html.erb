@@ -1,0 +1,28 @@
+<div class = "container">
+  <div class = "row">
+
+    <div class = "col=5">
+      <h1>user info</h1>
+        <%= @user.name%>
+        <%= @user.introduction%>
+      <h1>new book</h1>
+        <%= form_with model:@book,local:true do |f|%>
+        <p>Title</p>
+        <%= f.text_field :title%>
+        <p>Opinion</p>
+        <%= f.text_area :body%>
+        <%= f.submit "Create Book"%>
+        <%end%>
+    </div>
+
+    <div class = "col=7">
+      <h1>Book detail</h1>
+      <table class = "table">
+        <td><%= link_to @user.name,user_path(@user)%></td>
+        <td><%= link_to @chose_book.title,book_path(@chose_book)%></td>
+        <td><%= @chose_book.body%></td>
+      </table>
+    </div>
+
+  </div>
+</div>
