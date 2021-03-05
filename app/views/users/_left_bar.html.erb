@@ -1,3 +1,13 @@
+<% if book.errors.any? %>
+  <ul class="mx-auto">
+    <% book.errors.full_messages.each do|message|%>
+    <li><%= message %></li>
+    <%end%>
+    <%end%>
+  </ul>
+
+<div class = "container mt-3">
+  <div class = "row">
 <div class = "col-4">
       <h1>User info</h1>
         <%= attachment_image_tag user,:profile_image,size:"100x100",fallback:"image/person.jpeg"%>
