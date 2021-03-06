@@ -1,37 +1,29 @@
-<% if book.errors.any? %>
-  <ul class="mx-auto">
-    <% book.errors.full_messages.each do|message|%>
-    <li><%= message %></li>
-    <%end%>
-    <%end%>
-  </ul>
 
-<div class = "container mt-3">
-  <div class = "row">
-<div class = "col-4">
-      <h1>User info</h1>
-        <%= attachment_image_tag user,:profile_image,size:"100x100",fallback:"image/person.jpeg"%>
-        <table class="table mt-4 col-9">
-          <tr>
-            <th>name</th>
-            <th><%= user.name%></th>
-          </tr>
-          <tr>
-           <th>introduction</th>
-           <th><%= user.introduction%></th>
-          </tr>
-        </table>
-        <%= link_to"",edit_user_path(current_user),class:"btn btn-outline-secondary btn-block fas fa-user-cog col-8"%>
-      <h1 class="mt-3">New book</h1>
-        <%= form_with model:book,local:true do |f|%>
-        <div class="form-group">
-        <%= f.label :title%><br>
-        <%= f.text_field :title%>
-        </div>
-        <div class="form-group">
-        <%= f.label :body%><br>
-        <%= f.text_area :body%><br>
-        </div>
-        <%= f.submit "Create Book",class:"btn btn-success"%>
-        <%end%>
-    </div>
+<h1>User info</h1>
+<%= attachment_image_tag user,:profile_image,size:"100x100",fallback:"image/person.jpeg"%>
+
+<table class="table mt-4">
+  <tr>
+    <th>name</th>
+    <th><%= user.name%></th>
+  </tr>
+  <tr>
+    <th>introduction</th>
+    <th><%= user.introduction%></th>
+  </tr>
+</table>
+
+<%= link_to"",edit_user_path(user),class:"btn btn-outline-secondary btn-block fas fa-user-cog"%>
+
+<h1 class="mt-3">New book</h1>
+  <%= form_with model:book,local:true do |f|%>
+  <div class="form-group">
+    <%= f.label :title%><br>
+    <%= f.text_field :title%>
+  </div>
+  <div class="form-group">
+    <%= f.label :body%><br>
+    <%= f.text_area :body%><br>
+  </div>
+  <%= f.submit "Create Book",class:"btn btn-success"%>
+  <%end%>

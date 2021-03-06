@@ -1,21 +1,28 @@
 
-
-    <%= render "users/left_bar",user:@user,book:@book %>
-
-    <div class = "col-8">
-      <h1>Book detail</h1>
-      <table class = "table">
-        <tr>
-        <td><%= link_to @user.name,user_path(@user)%></td>
-        <td><%= link_to @chose_book.title,book_path(@chose_book)%></td>
-        <td><%= @chose_book.body%></td>
-        <% if @user.id == current_user.id %>
-        <td><%= link_to "Edit",edit_book_path(@chose_book)%></td>
-        <td><%= link_to "Destroy",book_path(@chose_book),method: :delete%></td>
-        <%end%>
-        </tr>
-      </table>
+<div class = "container">
+    <%= render "layouts/errors",book:@book%>
+    <div class = "row">
+        <div class = "col-md-3">
+            <%= render "users/left_bar",user:@user,book:@book %>
+        </div>
+        <div class = "col-md-8 offset-md-1">
+            <h1>Book detail</h1>
+            <table class = "table">
+              <tr>
+                <td>
+                    <%=link_to user_path(@user) do%>
+                        <%= attachment_image_tag @user,:profile_image,size:"25x25",fallback:"image/person.jpeg"%>
+                        <%= @user.name%>
+                    <%end%>
+                </td>
+                <td><%= link_to @chose_book.title,book_path(@chose_book)%></td>
+                <td><%= @chose_book.body%></td>
+                <% if @user.id == current_user.id %>
+                <td><%= link_to "Edit",edit_book_path(@chose_book)%></td>
+                <td><%= link_to "Destroy",book_path(@chose_book),method: :delete,"data-confirm"=>"本当に削除しますか？"%></td>
+                <%end%>
+              </tr>
+            </table>
+        </div>
     </div>
-
-  </div>
 </div>

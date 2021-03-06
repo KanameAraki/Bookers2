@@ -1,0 +1,8 @@
+<% if book.errors.any? %>
+  <ul class="mx-auto">
+    <% book.errors.full_messages.each do|message|%>
+    <p>error!!</p>
+    <li><%= message %></li>
+    <%end%>
+  </ul>
+    <%end%>
