@@ -18,6 +18,23 @@
                 <tr>
                 <td><%= attachment_image_tag user,:profile_image,size:"25x25",fallback:"image/person.jpeg"%></td>
                 <td><%= user.name %></td>
+
+                <td>
+                 <p>フォロー数：<%= user.followeds.count%></p>
+                </td>
+                <td>
+                 <p>フォロワー数：<%= user.followers.count%></p>
+                </td>
+                <td>
+                    <%if current_user != user%>
+                    <%if current_user.followeds.where(id:user.id).exists?%>
+                    <%= link_to"フォローを外す",user_relationship_path(user.id,user.active_relationships),method: :delete,class:"btn btn-outline-secondary btn-block"%>
+                    <%else%>
+                    <%= link_to"フォローする",user_relationships_path(user.id),method: :post,class:"btn btn-outline-secondary btn-block"%>
+                    <%end%>
+                    <%end%>
+                </td>
+
                 <td><%= link_to "Show",user_path(user.id)%></td>
                 </tr>
                 <%end%>
