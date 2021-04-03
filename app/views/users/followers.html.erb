@@ -1,0 +1,29 @@
+<div class="container">
+ <div class="row">
+<h1>フォロワー</h1>
+<table class="table">
+  <tr>
+    <th>image</th><th>name</th>
+  </tr>
+  <% @user.followers.each do |user|%>
+  <tr>
+    <td>
+      <%= link_to user_path(user) do %>
+      <%= attachment_image_tag user,:profile_image,size:"25x25",fallback:"image/person.jpeg"%>
+      <%end%>
+    </td>
+    <td>
+      <%=user.name%>
+    </td>
+    <td>
+      <p>フォロー数：<%= user.followeds.count%></p>
+    </td>
+    <td>
+      <p>フォロワー数：<%= user.followers.count%></p>
+    </td>
+    <td><%= link_to "Show",user_path(user.id)%></td>
+  </tr>
+  <%end%>
+</table>
+</div>
+</div>

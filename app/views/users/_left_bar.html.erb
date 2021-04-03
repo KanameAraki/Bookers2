@@ -11,9 +11,35 @@
     <th>introduction</th>
     <th><%= user.introduction%></th>
   </tr>
+  <tr>
+    <th>follows</th>
+    <th>
+      <%= link_to followeds_user_path(user) do%>
+      <%= user.followeds.count%>
+      <%end%>
+    </th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th>
+      <%= link_to followers_user_path(user) do%>
+      <%= user.followers.count%>
+      <%end%>
+    </th>
+  </tr>
 </table>
 
+<%if current_user == user%>
 <%= link_to"",edit_user_path(user),class:"btn btn-outline-secondary btn-block fas fa-user-cog"%>
+<%end%>
+
+<%if current_user != user%>
+<%if current_user.followeds.where(id:user.id).exists?%>
+<%= link_to"フォローを外す",user_relationship_path(user.id,user.active_relationships),method: :delete,class:"btn btn-outline-secondary btn-block"%>
+<%else%>
+<%= link_to"フォローする",user_relationships_path(user.id),method: :post,class:"btn btn-outline-secondary btn-block"%>
+<%end%>
+<%end%>
 
 <h1 class="mt-3">New book</h1>
   <%= form_with model:book,local:true do |f|%>
