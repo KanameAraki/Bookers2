@@ -1,0 +1,68 @@
+
+<div class = "container">
+    <%= render "layouts/errors",book:@book%>
+    <div class = "row">
+        <div class = "col-md-3">
+            <%= render "users/left_bar",user:@user,book:@book %>
+        </div>
+        <div class = "col-md-8 offset-md-1">
+            <h1>Book detail</h1>
+            <table class = "table">
+              <tr>
+                <td>
+                    <%=link_to user_path(@user) do%>
+                        <%= attachment_image_tag @user,:profile_image,size:"25x25",fallback:"image/person.jpeg"%>
+                        <%= @user.name%>
+                    <%end%>
+                </td>
+                <td><%= link_to @chose_book.title,book_path(@chose_book)%></td>
+                <td><%= @chose_book.body%></td>
+
+                <td>
+                    <% if @chose_book.favorited_by?(current_user)%>
+                      <p>
+                        <%= link_to book_favorites_path(@chose_book) ,method: :delete do%>
+                        ❤<%= @chose_book.favorites.count%>
+                        <%end%>
+                      </p>
+                    <%else%>
+                      <p>
+                        <%= link_to book_favorites_path(@chose_book) ,method: :post do%>
+                        ♡<%= @chose_book.favorites.count%>
+                        <%end%>
+                      </p>
+                    <%end%>
+                  </td>
+                  <td>
+                    <p>コメント数：<%= @chose_book.book_comments.count%></p>
+                  </td>
+
+                <% if @user.id == current_user.id %>
+                <td><%= link_to "Edit",edit_book_path(@chose_book)%></td>
+                <td><%= link_to "Destroy",book_path(@chose_book),method: :delete,"data-confirm"=>"本当に削除しますか？"%></td>
+                <%end%>
+              </tr>
+            </table>
+
+            <% @chose_book.book_comments.each do |book_comment|%>
+               <%=link_to user_path(book_comment.user_id) do%>
+                 <%= attachment_image_tag book_comment.user,:profile_image,size:"25x25",fallback:"image/person.jpeg"%>
+                 <%= book_comment.user.name%>
+               <%end%>
+               <%= book_comment.comment%>
+               <% if current_user.id == book_comment.user_id %>
+                <%= link_to "Destroy",book_book_comment_path(book_comment.book_id,book_comment),method: :delete%><br>
+               <%end%>
+            <%end%>
+
+            <%= form_with model:[@chose_book,@book_comment], local:true do |f|%>
+              <div class="form-group">
+                <%= f.label :comment%><br>
+                <%= f.text_area :comment%><br>
+              </div>
+              <%= f.submit "送信",class:"btn"%>
+            <%end%>
+
+        </div>
+    </div>
+</div>

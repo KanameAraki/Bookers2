@@ -5,39 +5,46 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+    <script src="https://kit.fontawesome.com/4fc01b7247.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+
     <header class="bg-dark">
       <div class="container">
-         <a class="navbar-brand" href="/">Bookers</a>
-      <nav class="d-flex navbar navbar-expand-lg navbar-dark flex-row-reverse">
-      <% if user_signed_in? %>
-      <div class="d-flex navbar-nav">
-      <a class="nav-link"><%= link_to "Home",user_path(:id)%></a>
-      <a class="nav-link"><%= link_to "Users",users_path%></a>
-      <a class="nav-link"><%= link_to "Books",books_path%></a>
-      <a class="nav-link"><%= link_to "logout",destroy_user_session_path,method: :delete%></a>
-      </div>
-      <%else%>
-      <div class="d-flex navbar-nav">
-      <a class="nav-link"><%= link_to "Home",user_registration_path%></a>
-      <a class="nav-link"><%= link_to "About",homes_about_path%></a>
-      <a class="nav-link"><%= link_to "sign up",new_user_registration_path%></a>
-      <a class="nav-link"><%= link_to "login",new_user_session_path%></a>
-      </div>
-      <%end%>
-      </nav>
-      </div>
+       <nav class="d-flex navbar navbar-expand-lg navbar-dark">
+           <a class="navbar-brand " href="/">Bookers</a>
+           <div class="ml-auto">
+            <% if user_signed_in? %>
+            <ul class="navbar-nav">
+              <%= link_to "Home",user_path(current_user), class: "text-light nav-link fas fa-home"%>
+              <%= link_to "Users",users_path, class: "text-light nav-link fas fa-users"%>
+              <%= link_to "Books",books_path, class: "text-light nav-link fas fa-book-open"%>
+              <%= link_to "logout",destroy_user_session_path,method: :delete, class: "text-light nav-link fas fa-sign-out-alt"%>
+            </ul>
+            <%else%>
+            <ul class="navbar-nav">
+              <%= link_to "Home",root_path, class: "text-light nav-link fas fa-home"%>
+              <%= link_to "About",home_about_path, class: "text-light nav-link fas fa-link"%>
+              <%= link_to "sign up",new_user_registration_path, class: "text-light nav-link fas fa-user-plus"%>
+              <%= link_to "login",new_user_session_path, class: "text-light nav-link fas fa-sign-in-alt"%>
+            </ul>
+            <%end%>
+           </div>
+         </div>
+       </nav>
     </header>
+
+        <%= notice%>
 
     <%= yield %>
 
-    <footer>
-      <p>CopyRight infratop.inc</p>
+    <footer class=" container mt-5">
+          <p class="text-center">CopyRight infratop.inc</p>
     </footer>
+
+
   </body>
 </html>
